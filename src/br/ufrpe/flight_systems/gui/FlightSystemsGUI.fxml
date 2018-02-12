@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrpe.flight_systems.gui.FlightSystemsGUIController">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Vôos">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="471.0" prefWidth="758.0">
+                     <children>
+                        <AnchorPane prefHeight="464.0" prefWidth="124.0">
+                           <children>
+                              <Button layoutX="2.0" layoutY="92.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Adicionar" />
+                              <Button layoutX="2.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Remover" />
+                              <Button layoutX="2.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Atualizar" />
+                              <Button layoutX="1.0" layoutY="264.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="108.0" text="Emitir bilhete para vôo selecionado" />
+                              <Button layoutX="2.0" layoutY="368.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="107.0" text="Listar passageiros do vôo selecionado" />
+                           </children>
+                        </AnchorPane>
+                        <TableView layoutX="125.0" layoutY="46.0" prefHeight="419.0" prefWidth="656.0">
+                          <columns>
+                            <TableColumn prefWidth="147.0" text="Cidade origem" />
+                            <TableColumn minWidth="0.0" prefWidth="147.0" text="Cidade destino" />
+                              <TableColumn prefWidth="160.0" text="Hora de saída" />
+                              <TableColumn prefWidth="201.0" text="Hora estimada de chegada" />
+                          </columns>
+                        </TableView>
+                        <Label layoutX="275.0" layoutY="2.0" prefHeight="38.0" prefWidth="286.0" text="                   GERENCIAMENTO DE VÔOS" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Passageiros">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane prefHeight="469.0" prefWidth="124.0">
+                           <children>
+                              <Button layoutX="2.0" layoutY="92.0" mnemonicParsing="false" onAction="#openAddMenu" prefHeight="25.0" prefWidth="106.0" text="Adicionar" />
+                              <Button layoutX="2.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Remover" />
+                              <Button layoutX="2.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Atualizar" />
+                           </children>
+                        </AnchorPane>
+                        <TableView layoutX="125.0" layoutY="46.0" onSort="#tabelaPassageiros" prefHeight="418.0" prefWidth="656.0">
+                           <columns>
+                              <TableColumn prefWidth="147.0" text="Primeiro nome" />
+                              <TableColumn minWidth="0.0" prefWidth="147.0" text="Último nome" />
+                              <TableColumn prefWidth="160.0" text="CPF" />
+                              <TableColumn prefWidth="201.0" text="Passaporte" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="275.0" layoutY="2.0" prefHeight="38.0" prefWidth="286.0" text="                   GERENCIAMENTO DE PASSAGEIROS" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
