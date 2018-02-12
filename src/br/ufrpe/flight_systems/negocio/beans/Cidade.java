@@ -3,11 +3,9 @@ package br.ufrpe.flight_systems.negocio.beans;
 import java.time.ZoneId;
 
 public enum Cidade {
-	REC("Recife"), BSB("Brasília"), GIG("Galeão"), GRU("Guarulhos"), YYZ("Toronto"), YVR("Vancouver"),
-	LGA("Nova Iorque"), LAS("Las Vegas"), LIS("Lisboa"), MAD("Madrid"), BCN("Barcelona"),
-	ORY("Paris"), LYS("Lyon"), AMS("Amsterdã"), LHR("Londres"),
-	DUB("Dublin"), ARN("Estocolmo"), CPH("Copenhague"), OSL("Oslo"), HEL("Helsínque"),
-	TXL("Berlim"), CIA("Roma"), PEK("Pequim"), HND("Tóquio"), ICN("Seul");
+	REC("Recife"), BSB("Brasília"), GIG("Galeão"), GRU("Guarulhos"), YYZ("Toronto"), YVR("Vancouver"),LGA("Nova Iorque"),
+	LAS("Las Vegas"), LIS("Lisboa"), MAD("Madrid"),ORY("Paris"), AMS("Amsterdã"), LHR("Londres"), DUB("Dublin"),
+	ARN("Estocolmo"), CPH("Copenhague"), OSL("Oslo"), TXL("Berlim"), CIA("Roma"), PEK("Pequim"), HND("Tóquio"), ICN("Seul");
 	
 	private String cidade;
 	private ZoneId fusoHorario;

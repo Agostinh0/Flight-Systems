@@ -9,6 +9,8 @@ import br.ufrpe.flight_systems.negocio.Fachada;
 import br.ufrpe.flight_systems.negocio.beans.Cidade;
 import br.ufrpe.flight_systems.negocio.beans.Voo;
 import br.ufrpe.flight_systems.negocio.beans.Aeronave;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
@@ -17,16 +19,25 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class AdicionarVooController {
 	private Fachada fachada = Fachada.getInstance();
 	
 	@FXML Label aviso;
-	@FXML Button btnCancelar, btnSalvar;
-	@FXML TextField horaSaida, minutoSaida, horaChegada, minutoChegada;
-	@FXML ChoiceBox<Cidade> cidadeOrigem, cidadeDestino;
-	@FXML ChoiceBox<Aeronave>Aeronave;
-	@FXML DatePicker dataSaida, dataChegada;
+	@FXML Button btnCancelar;
+	@FXML Button btnSalvar;
+	@FXML TextField horaSaida;
+	@FXML TextField minutoSaida;
+	@FXML TextField horaChegada;
+	@FXML TextField minutoChegada;
+	@FXML ChoiceBox<Cidade> cidadeOrigem;
+	@FXML ChoiceBox<Cidade> cidadeDestino;
+	@FXML ChoiceBox<Aeronave> Aeronave;
+	@FXML DatePicker dataSaida;
+	@FXML DatePicker dataChegada;
+	@FXML ObservableList<Cidade> srcCity;
+	@FXML ObservableList<Cidade> dstCity;
 	
 	public void salvar(){
 		String leavingHour, leavingMinute, arrivalHour, arrivalMinute;
@@ -38,7 +49,7 @@ public class AdicionarVooController {
 		
 		if(!leavingHour.equals("") && !leavingMinute.equals("") && dataSaida.getValue() != null && dataChegada.getValue() != null
 				&& !arrivalHour.equals("") && !arrivalMinute.equals("") && cidadeOrigem.getValue() != null && 
-				cidadeDestino.getValue()!= null){
+				cidadeDestino.getValue() != null){
 			
 			int hSaida = Integer.parseInt(leavingHour);
 			int hChegada = Integer.parseInt(arrivalHour);
@@ -63,12 +74,14 @@ public class AdicionarVooController {
 			Voo voo = new Voo(idAleatorio, cidadeOrigem.getValue(), cidadeDestino.getValue(), horaDaSaida, chegadaComFusoHorario, Aeronave.getValue());
 			
 			try{
+				Stage stage = (Stage) btnSalvar.getScene().getWindow();
 				fachada.adicionarVoo(voo);
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Vôo adicionado!");
 				alert.setHeaderText(null);
 				alert.setContentText(voo.toString());
 				alert.showAndWait();
+				stage.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -77,8 +90,11 @@ public class AdicionarVooController {
 			aviso.setText("Preencha todos os campos!");
 		}
 		
-		
-		
+	}
+	
+	public void voltar(){
+		Stage stage = (Stage) btnCancelar.getScene().getWindow();
+		stage.close();
 	}
 	
 }

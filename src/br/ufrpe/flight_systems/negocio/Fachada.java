@@ -2,18 +2,21 @@ package br.ufrpe.flight_systems.negocio;
 
 import java.util.ArrayList;
 
+import br.ufrpe.flight_systems.negocio.beans.Bilhete;
 import br.ufrpe.flight_systems.negocio.beans.Passageiro;
 import br.ufrpe.flight_systems.negocio.beans.Voo;
 
 public class Fachada {
 	private ControladorPassageiros controladorPassageiros;
 	private ControladorVoos controladorVoos;
+	private ControladorBilhetes controladorBilhetes;
 	private static Fachada instance;
 	
 	//Construtor
 	public Fachada(){
 		this.controladorPassageiros = ControladorPassageiros.getInstance();
 		this.controladorVoos = ControladorVoos.getInstance();
+		this.controladorBilhetes = ControladorBilhetes.getInstance();
 	}
 	
 	//Singleton
@@ -59,4 +62,16 @@ public class Fachada {
 		this.controladorVoos.remover(voo);
 	}
 	
+	//Bilhetes
+	public void emitirBilhete(Bilhete bilhete){
+		this.controladorBilhetes.adicionar(bilhete);
+	}
+	
+	public ArrayList<Bilhete> listarBilhetes(){
+		return this.controladorBilhetes.listar();
+	}
+	
+	public void removerBilhete(Bilhete bilhete){
+		this.controladorBilhetes.remover(bilhete);
+	}
 }

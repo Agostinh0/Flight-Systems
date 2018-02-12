@@ -15,19 +15,19 @@
                      <children>
                         <AnchorPane prefHeight="464.0" prefWidth="124.0">
                            <children>
-                              <Button layoutX="2.0" layoutY="92.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Adicionar" />
-                              <Button layoutX="2.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Remover" />
-                              <Button layoutX="2.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Atualizar" />
+                              <Button fx:id="btnAdicionarVoo" layoutX="2.0" layoutY="92.0" mnemonicParsing="false" onAction="#openFlightAddMenu" prefHeight="25.0" prefWidth="106.0" text="Adicionar" />
+                              <Button fx:id="btnRemoverVoo" layoutX="2.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Remover" />
+                              <Button fx:id="btnAtualizarVoo" layoutX="2.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Atualizar" />
                               <Button layoutX="1.0" layoutY="264.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="108.0" text="Emitir bilhete para vôo selecionado" />
                               <Button layoutX="2.0" layoutY="368.0" mnemonicParsing="false" prefHeight="79.0" prefWidth="107.0" text="Listar passageiros do vôo selecionado" />
                            </children>
                         </AnchorPane>
-                        <TableView layoutX="125.0" layoutY="46.0" prefHeight="419.0" prefWidth="656.0">
+                        <TableView fx:id="tabelaVoos" layoutX="125.0" layoutY="46.0" onSort="#tabelaVoos" prefHeight="419.0" prefWidth="656.0">
                           <columns>
-                            <TableColumn prefWidth="147.0" text="Cidade origem" />
-                            <TableColumn minWidth="0.0" prefWidth="147.0" text="Cidade destino" />
-                              <TableColumn prefWidth="160.0" text="Hora de saída" />
-                              <TableColumn prefWidth="201.0" text="Hora estimada de chegada" />
+                            <TableColumn fx:id="tcCidadeOrigem" prefWidth="147.0" text="Cidade origem" />
+                            <TableColumn fx:id="tcCidadeDestino" minWidth="0.0" prefWidth="147.0" text="Cidade destino" />
+                              <TableColumn fx:id="tcHoraSaida" prefWidth="160.0" text="Hora de saída" />
+                              <TableColumn fx:id="tcHoraChegada" prefWidth="201.0" text="Hora estimada de chegada" />
                           </columns>
                         </TableView>
                         <Label layoutX="275.0" layoutY="2.0" prefHeight="38.0" prefWidth="286.0" text="                   GERENCIAMENTO DE VÔOS" />
@@ -41,17 +41,17 @@
                      <children>
                         <AnchorPane prefHeight="469.0" prefWidth="124.0">
                            <children>
-                              <Button layoutX="2.0" layoutY="92.0" mnemonicParsing="false" onAction="#openAddMenu" prefHeight="25.0" prefWidth="106.0" text="Adicionar" />
-                              <Button layoutX="2.0" layoutY="131.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Remover" />
-                              <Button layoutX="2.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Atualizar" />
+                              <Button fx:id="btnAdicionarPassageiro" layoutX="2.0" layoutY="92.0" mnemonicParsing="false" onAction="#openAddMenu" prefHeight="25.0" prefWidth="106.0" text="Adicionar" />
+                              <Button fx:id="btnRemoverPassageiro" layoutX="2.0" layoutY="131.0" mnemonicParsing="false" onAction="#deletePassenger" prefHeight="25.0" prefWidth="106.0" text="Remover" />
+                              <Button fx:id="btnAtualizarPassageiro" layoutX="2.0" layoutY="172.0" mnemonicParsing="false" onAction="#openEditMenu" prefHeight="25.0" prefWidth="107.0" text="Atualizar" />
                            </children>
                         </AnchorPane>
-                        <TableView layoutX="125.0" layoutY="46.0" onSort="#tabelaPassageiros" prefHeight="418.0" prefWidth="656.0">
+                        <TableView fx:id="tabelaPassageiros" layoutX="125.0" layoutY="46.0" onSort="#tabelaPassageiros" prefHeight="418.0" prefWidth="656.0">
                            <columns>
-                              <TableColumn prefWidth="147.0" text="Primeiro nome" />
-                              <TableColumn minWidth="0.0" prefWidth="147.0" text="Último nome" />
-                              <TableColumn prefWidth="160.0" text="CPF" />
-                              <TableColumn prefWidth="201.0" text="Passaporte" />
+                              <TableColumn fx:id="tcPrimeiroNome" prefWidth="147.0" text="Primeiro nome" />
+                              <TableColumn fx:id="tcUltimoNome" minWidth="0.0" prefWidth="147.0" text="Último nome" />
+                              <TableColumn fx:id="tcCpf" prefWidth="160.0" text="CPF" />
+                              <TableColumn fx:id="tcPassaporte" prefWidth="201.0" text="Passaporte" />
                            </columns>
                         </TableView>
                         <Label layoutX="275.0" layoutY="2.0" prefHeight="38.0" prefWidth="286.0" text="                   GERENCIAMENTO DE PASSAGEIROS" />

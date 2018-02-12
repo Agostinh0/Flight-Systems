@@ -16,7 +16,7 @@ public class Voo {
 	
 	private boolean[] assentos; 
 			
- 	//Construtor_
+ 	//Construtor
 	public Voo(long id, Cidade srcCity, Cidade dstCity, LocalDateTime take_offTime,
 			ZonedDateTime estimatedLanding, Aeronave plane){
 		this.id = id;

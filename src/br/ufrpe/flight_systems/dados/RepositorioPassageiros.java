@@ -37,7 +37,8 @@ public class RepositorioPassageiros {
 		int indice = buscarIndice(passageiro.getPassaporte());
 		
 		if(indice >= 0){
-			this.passageiros.set(indice, passageiro);
+			this.passageiros.get(indice).setPrimeiroNome(passageiro.getPrimeiroNome());
+			this.passageiros.get(indice).setUltimoNome(passageiro.getUltimoNome());
 		}
 	}
 	

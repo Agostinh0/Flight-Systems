@@ -8,37 +8,46 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 public class AtualizarPassageiroController {
 	
 	@FXML Label aviso;
-	@FXML Button btnCancelar, btnSalvar;
-	@FXML TextField newFirstName, newLastName, newCpf, newPassport;
+	@FXML Button btnCancelar;
+	@FXML Button btnSalvar;
+	@FXML TextField newFirstName;
+	@FXML TextField newLastName;
+	private Passageiro pEdit;
 	
 	public void editar(){
-		String novoPrimeiroNome, novoUltimoNome, novoCpf, novoPassaporte;
+		String novoPrimeiroNome, novoUltimoNome;
 		
 		novoPrimeiroNome = newFirstName.getText();
 		novoUltimoNome = newLastName.getText();
-		novoCpf = newCpf.getText();
-		novoPassaporte = newPassport.getText();
 		
-		Passageiro edita = new Passageiro(novoPrimeiroNome, novoUltimoNome, novoCpf, novoPassaporte);
+		Passageiro edita = new Passageiro(novoPrimeiroNome, novoUltimoNome, this.pEdit.getCpf(), this.pEdit.getPassaporte());
 		
 		try{
+			Stage stage = (Stage) btnSalvar.getScene().getWindow(); 
 			Fachada.getInstance().editarPassageiro(edita);
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Passageiro editado!");
 			alert.setHeaderText(null);
 			alert.setContentText(edita.toString());
 			alert.showAndWait();
+			stage.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
 	public void voltar(){
-		
+		Stage stage = (Stage) btnCancelar.getScene().getWindow();
+		stage.close();
+	}
+	
+	public void setPassengerEdit(Passageiro p){
+		this.pEdit = p;
 	}
 	
 }	
