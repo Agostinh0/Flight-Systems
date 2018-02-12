@@ -15,12 +15,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class FlightSystemsGUIController implements Initializable{
 	
@@ -88,8 +93,29 @@ public class FlightSystemsGUIController implements Initializable{
 	
 	public void openAddMenu(ActionEvent event){
 		try{
-			BorderPane root = FXMLLoader.load(getClass().getResource("/br/ufrpe/flight_systems/gui/AdicionarPassageiros.fxml"));
-			mainScreen.setCenter(root);
+			BorderPane root = FXMLLoader.load(getClass().getResource("/br/ufrpe/flight_systems/gui/AdicionarPassageiro.fxml"));
+			
+			//isso abaixo usaria a mesma cena
+			//***Stage stage = (Stage) ((Node) (event.getSource())).getScene().getWindow();
+			
+			//mas ao invés disso agnt quer mostrar uma nova janela
+			Stage stage = new Stage();
+			
+			//bloqueia outras janelas
+			stage.initModality(Modality.APPLICATION_MODAL);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.setTitle("aviaozinho ne mores");
+			
+			//abaixo pra colocar o icone
+			//***Image icon = new Image("algumaviaodainternet.png");
+		    //***stage.getIcons().add(icon);
+			
+			stage.setResizable(false);
+			stage.show();
+			
+			// me diz oq isso faz pq n sei ---> mainScreen.setCenter(root);
+			
 		}catch(IOException e){
 			Logger.getLogger(FlightSystemsGUIController.class.getName()).log(Level.SEVERE, null, e);
 		}
