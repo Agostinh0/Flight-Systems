@@ -82,10 +82,10 @@ public class FlightSystemsGUIController implements Initializable{
 	}
 
 	public void tabelaVoos(){
-		tcCidadeOrigem.setCellValueFactory(new PropertyValueFactory<Voo, String>("Cidade origem"));
-		tcCidadeDestino.setCellValueFactory(new PropertyValueFactory<Voo, String>("Cidade destino"));
-		tcHoraSaida.setCellValueFactory(new PropertyValueFactory<Voo, LocalTime>("Hora saída"));
-		tcHoraChegada.setCellValueFactory(new PropertyValueFactory<Voo, ZonedDateTime>("Hora estimada de chegada"));
+		tcCidadeOrigem.setCellValueFactory(new PropertyValueFactory<Voo, String>("CidadeOrigem"));
+		tcCidadeDestino.setCellValueFactory(new PropertyValueFactory<Voo, String>("CidadeDestino"));
+		tcHoraSaida.setCellValueFactory(new PropertyValueFactory<Voo, LocalTime>("HoraSaida"));
+		tcHoraChegada.setCellValueFactory(new PropertyValueFactory<Voo, ZonedDateTime>("HoraChegada"));
 		
 		tabelaVoos.setItems(FXCollections.observableList(Fachada.getInstance().listarVoos()));
 		tabelaVoos.refresh();

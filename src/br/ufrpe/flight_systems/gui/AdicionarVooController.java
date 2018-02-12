@@ -9,8 +9,6 @@ import br.ufrpe.flight_systems.negocio.Fachada;
 import br.ufrpe.flight_systems.negocio.beans.Cidade;
 import br.ufrpe.flight_systems.negocio.beans.Voo;
 import br.ufrpe.flight_systems.negocio.beans.Aeronave;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
@@ -33,11 +31,56 @@ public class AdicionarVooController {
 	@FXML TextField minutoChegada;
 	@FXML ChoiceBox<Cidade> cidadeOrigem;
 	@FXML ChoiceBox<Cidade> cidadeDestino;
-	@FXML ChoiceBox<Aeronave> Aeronave;
+	@FXML ChoiceBox<Aeronave> aeronave;
 	@FXML DatePicker dataSaida;
 	@FXML DatePicker dataChegada;
-	@FXML ObservableList<Cidade> srcCity;
-	@FXML ObservableList<Cidade> dstCity;
+	
+	public void initializeCities(){
+		//Cidades origem
+		cidadeOrigem.getItems().add(Cidade.REC);
+		cidadeOrigem.getItems().add(Cidade.BSB);
+		cidadeOrigem.getItems().add(Cidade.GIG);
+		cidadeOrigem.getItems().add(Cidade.GRU);
+		//Cidades destino
+		cidadeDestino.getItems().add(Cidade.REC);
+		cidadeDestino.getItems().add(Cidade.BSB);
+		cidadeDestino.getItems().add(Cidade.GIG);
+		cidadeDestino.getItems().add(Cidade.GRU);
+		cidadeDestino.getItems().add(Cidade.AMS);
+		cidadeDestino.getItems().add(Cidade.ARN);
+		cidadeDestino.getItems().add(Cidade.CIA);
+		cidadeDestino.getItems().add(Cidade.CPH);
+		cidadeDestino.getItems().add(Cidade.DUB);
+		cidadeDestino.getItems().add(Cidade.HND);
+		cidadeDestino.getItems().add(Cidade.ICN);
+		cidadeDestino.getItems().add(Cidade.LAS);
+		cidadeDestino.getItems().add(Cidade.LGA);
+		cidadeDestino.getItems().add(Cidade.LHR);
+		cidadeDestino.getItems().add(Cidade.LIS);
+		cidadeDestino.getItems().add(Cidade.MAD);
+		cidadeDestino.getItems().add(Cidade.ORY);
+		cidadeDestino.getItems().add(Cidade.OSL);
+		cidadeDestino.getItems().add(Cidade.PEK);
+		cidadeDestino.getItems().add(Cidade.TXL);
+		cidadeDestino.getItems().add(Cidade.YVR);
+		cidadeDestino.getItems().add(Cidade.YYZ);
+	}
+	
+	public void initializeAirPlanes(){
+		//Aeronaves
+		aeronave.getItems().add(Aeronave.AIRBUS_A320);
+		aeronave.getItems().add(Aeronave.AIRBUS_A330);
+		aeronave.getItems().add(Aeronave.AIRBUS_A350);
+		aeronave.getItems().add(Aeronave.BOEING_737);
+		aeronave.getItems().add(Aeronave.BOEING_757);
+		aeronave.getItems().add(Aeronave.BOEING_787);
+	}
+	
+	public void initialize(){
+		this.initializeCities();
+		this.initializeAirPlanes();
+	}
+	
 	
 	public void salvar(){
 		String leavingHour, leavingMinute, arrivalHour, arrivalMinute;
@@ -49,7 +92,7 @@ public class AdicionarVooController {
 		
 		if(!leavingHour.equals("") && !leavingMinute.equals("") && dataSaida.getValue() != null && dataChegada.getValue() != null
 				&& !arrivalHour.equals("") && !arrivalMinute.equals("") && cidadeOrigem.getValue() != null && 
-				cidadeDestino.getValue() != null){
+				cidadeDestino.getValue() != null && aeronave.getValue() != null){
 			
 			int hSaida = Integer.parseInt(leavingHour);
 			int hChegada = Integer.parseInt(arrivalHour);
@@ -71,7 +114,7 @@ public class AdicionarVooController {
 			long numero = (long) (Math.random() * 100000);
 			long idAleatorio = Math.round(numero);
 			
-			Voo voo = new Voo(idAleatorio, cidadeOrigem.getValue(), cidadeDestino.getValue(), horaDaSaida, chegadaComFusoHorario, Aeronave.getValue());
+			Voo voo = new Voo(idAleatorio, cidadeOrigem.getValue(), cidadeDestino.getValue(), horaDaSaida, chegadaComFusoHorario, aeronave.getValue());
 			
 			try{
 				Stage stage = (Stage) btnSalvar.getScene().getWindow();
@@ -82,12 +125,13 @@ public class AdicionarVooController {
 				alert.setContentText(voo.toString());
 				alert.showAndWait();
 				stage.close();
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
 			
 		}else{
-			aviso.setText("Preencha todos os campos!");
+			//aviso.setText("Preencha todos os campos!");
 		}
 		
 	}
