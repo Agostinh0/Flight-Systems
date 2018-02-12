@@ -33,7 +33,7 @@
             <Label layoutX="229.0" layoutY="253.0" prefHeight="17.0" prefWidth="7.0" text=":" />
             <ChoiceBox fx:id="cidadeOrigem" layoutX="194.0" layoutY="94.0" prefWidth="150.0" />
             <ChoiceBox fx:id="cidadeDestino" layoutX="194.0" layoutY="136.0" prefWidth="150.0" />
-            <ChoiceBox fx:id="Aeronave" layoutX="194.0" layoutY="334.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="aeronave" layoutX="194.0" layoutY="334.0" prefWidth="150.0" />
          </children>
       </AnchorPane>
    </center>

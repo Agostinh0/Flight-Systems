@@ -109,7 +109,7 @@ public class AdicionarVooController {
 			LocalDateTime horaEstimadaDaChegada = LocalDateTime.of(dataEstimadadaDaChegada, horaAterrissagem);
 			
 			ZonedDateTime chegadaComFusoHorario = 
-					ZonedDateTime.of(horaEstimadaDaChegada, cidadeDestino.getValue().getFusoHorario(cidadeDestino.getValue()));
+					ZonedDateTime.of(horaEstimadaDaChegada, cidadeDestino.getValue().getFusoHorario());
 			
 			long numero = (long) (Math.random() * 100000);
 			long idAleatorio = Math.round(numero);

@@ -18,7 +18,7 @@ public enum Cidade {
 		return cidade;
 	}
 	
-	public ZoneId getFusoHorario(Cidade cidade){
+	public ZoneId getFusoHorario(){
 		
 		if(cidade.equals(REC.getCidade()) || cidade.equals(BSB.getCidade()) || cidade.equals(GIG.getCidade()) 
 				 ||cidade.equals(GRU.getCidade())){

@@ -9,7 +9,6 @@ public enum Aeronave {
 	
 	//Construtor
 	Aeronave(String modeloAeronave){
-		this.modeloAeronave = modeloAeronave;
 		switch(modeloAeronave){
 			case "Airbus A320": capacidade = 220; break;
 			case "Airbus A330": capacidade = 335; break;
@@ -18,6 +17,8 @@ public enum Aeronave {
 			case "Boeing 787": capacidade = 400; break;
 			case "Boeing 737": capacidade = 215; break;
 		}
+		
+		this.modeloAeronave = modeloAeronave;
 	}
 	
 	public String getModeloAeronave(){

@@ -90,11 +90,11 @@ public class Voo {
 	@Override
 	public String toString(){
 		String texto = "ID: " + this.getId();
-		texto += "\nCidade origem: " + this.getCidadeOrigem();
-		texto += "\nCidade destino: " + this.getCidadeDestino();
+		texto += "\nCidade origem: " + this.getCidadeOrigem().getCidade();
+		texto += "\nCidade destino: " + this.getCidadeDestino().getCidade();
 		texto += "\nHora de saída: " + this.getHoraSaida();
 		texto += "\nHora estimada de chegada: " + this.getHoraEstimadaChegada();
-		texto += "\nModelo da aeronave: " + this.getAeronave();
+		texto += "\nModelo da aeronave: " + this.getAeronave().getModeloAeronave();
 		texto += "\nPassageiros no vôo: " + this.passageiros.toString();
 		return texto;
 	}
