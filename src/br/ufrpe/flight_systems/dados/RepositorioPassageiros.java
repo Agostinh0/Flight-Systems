@@ -1,10 +1,18 @@
 package br.ufrpe.flight_systems.dados;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import br.ufrpe.flight_systems.negocio.beans.Passageiro;
 
-public class RepositorioPassageiros {
+public class RepositorioPassageiros implements Serializable{
 	
+	private static final long serialVersionUID = 5188081318345668508L;
 	protected ArrayList<Passageiro> passageiros;
 	private static RepositorioPassageiros instance;
 	
@@ -16,7 +24,7 @@ public class RepositorioPassageiros {
 	//Singleton
 	public static RepositorioPassageiros getInstance(){
 		if(instance == null){
-			instance = new RepositorioPassageiros();
+			instance = RepositorioPassageiros.lerArquivo();
 		}
 		
 		return instance;
@@ -61,5 +69,70 @@ public class RepositorioPassageiros {
 		}
 		
 		return i;
+	}
+	
+	//Arquivos
+	private static RepositorioPassageiros lerArquivo(){
+		RepositorioPassageiros instanciaLocal = null;
+		
+		File arquivo = new File("repositorioPassageiros.dat");
+		
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+		
+		try{
+			
+			fis = new FileInputStream(arquivo);
+			ois = new ObjectInputStream(fis);
+			
+			Object o = ois.readObject();
+			
+			instanciaLocal = (RepositorioPassageiros) o;
+			
+		}catch(Exception e){
+			instanciaLocal = new RepositorioPassageiros();
+		}finally{
+			if(ois != null){
+				try{
+					ois.close();
+				}catch(IOException e){
+					
+				}
+			}
+		}
+		
+		return instanciaLocal;
+	}
+	
+	public void salvarArquivo(){
+		if(instance == null){
+			return;
+		}
+		
+		File arquivo = new File("repositorioPassageiros.dat");
+		
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		
+		try{
+			if(!arquivo.exists()){
+				arquivo.createNewFile();
+			}
+			
+			fos = new FileOutputStream(arquivo);
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(instance);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally{
+			if(oos != null){
+				try{
+					oos.close();
+				}catch(IOException e){
+					
+				}
+			}
+		}
+		
 	}
 }

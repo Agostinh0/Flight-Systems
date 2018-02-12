@@ -52,5 +52,7 @@ public class ControladorPassageiros {
 		}
 	}
 	
-	
+	public void salvarArquivo(){
+		repositorio.salvarArquivo();
+	}
 }

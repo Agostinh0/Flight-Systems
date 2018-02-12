@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.ufrpe.flight_systems.gui.AtualizarVooController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
@@ -16,24 +15,24 @@
                   <Font name="Arial" size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="166.0" layoutY="175.0" prefHeight="25.0" prefWidth="30.0" />
+            <TextField fx:id="novaHoraSaida" layoutX="166.0" layoutY="175.0" prefHeight="25.0" prefWidth="30.0" />
             <Label layoutX="202.0" layoutY="179.0" prefHeight="17.0" prefWidth="7.0" text=":" />
-            <TextField layoutX="211.0" layoutY="175.0" prefHeight="25.0" prefWidth="30.0" />
-            <ChoiceBox layoutX="166.0" layoutY="99.0" prefWidth="150.0" />
-            <ChoiceBox layoutX="166.0" layoutY="140.0" prefWidth="150.0" />
-            <DatePicker layoutX="166.0" layoutY="212.0" />
-            <DatePicker layoutX="166.0" layoutY="281.0" />
-            <TextField layoutX="166.0" layoutY="244.0" prefHeight="25.0" prefWidth="30.0" />
-            <TextField layoutX="211.0" layoutY="244.0" prefHeight="25.0" prefWidth="30.0" />
+            <TextField fx:id="novoMinutoSaida" layoutX="211.0" layoutY="175.0" prefHeight="25.0" prefWidth="30.0" />
+            <ChoiceBox fx:id="novaCidadeOrigem" layoutX="166.0" layoutY="99.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="novaCidadeDestino" layoutX="166.0" layoutY="140.0" prefWidth="150.0" />
+            <DatePicker fx:id="novaDataSaida" layoutX="166.0" layoutY="212.0" />
+            <DatePicker fx:id="novaDataChegada" layoutX="166.0" layoutY="281.0" />
+            <TextField fx:id="novaHoraChegada" layoutX="166.0" layoutY="244.0" prefHeight="25.0" prefWidth="30.0" />
+            <TextField fx:id="novoMinutoChegada" layoutX="211.0" layoutY="244.0" prefHeight="25.0" prefWidth="30.0" />
             <Label layoutX="202.0" layoutY="248.0" prefHeight="17.0" prefWidth="7.0" text=":" />
-            <ChoiceBox layoutX="166.0" layoutY="324.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="novaAeronave" layoutX="166.0" layoutY="324.0" prefWidth="150.0" />
             <Label layoutX="31.0" layoutY="103.0" text="Nova cidade origem:" />
             <Label layoutX="31.0" layoutY="140.0" text="Nova cidade destino:" />
             <Label layoutX="31.0" layoutY="179.0" text="Nova hora de saída:" />
             <Label layoutX="23.0" layoutY="248.0" text="Nova hora de chegada:" />
             <Label layoutX="12.0" layoutY="328.0" text="Novo modelo da aeronave:" />
-            <Button layoutX="409.0" layoutY="349.0" mnemonicParsing="false" text="Cancelar" />
-            <Button layoutX="488.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="59.0" text="Salvar" />
+            <Button fx:id="btnCancelar" layoutX="409.0" layoutY="349.0" mnemonicParsing="false" onAction="#voltar" text="Cancelar" />
+            <Button fx:id="btnSalvar" layoutX="488.0" layoutY="349.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="59.0" text="Salvar" />
          </children>
       </AnchorPane>
    </left>

@@ -52,4 +52,7 @@ public class ControladorVoos {
 		}
 	}
 	
+	public void salvarArquivo(){
+		repositorio.salvarArquivo();
+	}
 }

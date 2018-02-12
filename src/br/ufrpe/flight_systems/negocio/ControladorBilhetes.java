@@ -43,4 +43,8 @@ public class ControladorBilhetes {
 			repositorio.remover(bilhete);
 		}
 	}
+	
+	public void salvarArquivo(){
+		repositorio.salvarArquivo();
+	}
 }

@@ -35,6 +35,7 @@ public class AdicionarPassageiroController {
 		try{
 			Stage stage = (Stage) btnSalvar.getScene().getWindow();
 			fachada.adicionarPassageiro(p);
+			fachada.salvarArquivoPassageiros();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Passageiro adicionado!");
 			alert.setHeaderText(null);

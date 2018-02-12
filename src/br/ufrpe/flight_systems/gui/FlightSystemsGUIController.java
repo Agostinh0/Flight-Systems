@@ -44,7 +44,6 @@ public class FlightSystemsGUIController implements Initializable{
 	@FXML TableColumn<Passageiro, String> tcUltimoNome;
 	@FXML TableColumn<Passageiro, String>tcCpf;
 	@FXML TableColumn<Passageiro, String> tcPassaporte; 
-	@FXML private BorderPane mainScreen;
 	@FXML private Button btnAdicionarPassageiro;
 	@FXML private Button btnRemoverPassageiro;
 	@FXML private Button btnAtualizarPassageiro;
@@ -152,6 +151,29 @@ public class FlightSystemsGUIController implements Initializable{
 		}
 	}
 	
+	public void openFlightEditMenu(ActionEvent event){
+		Voo v = null;
+		v = tabelaVoos.getSelectionModel().getSelectedItem();
+		
+		if(v != null){
+			try{
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/AtualizarVoo.fxml"));
+				BorderPane root = (BorderPane) loader.load();
+				AtualizarVooController attFlight = loader.getController();
+				attFlight.setFlightEdit(v);
+				Stage stage = new Stage();
+				stage.setResizable(false);
+				stage.setScene(new Scene(root));
+				stage.setTitle("Flight Systems");
+				stage.show();
+			}catch(IOException e){
+				Logger.getLogger(FlightSystemsGUIController.class.getName()).log(Level.SEVERE, null, e);
+			}
+		}else{
+			aviso.setText("Selecione um item da lista.");
+		}
+	}
+	
 	public void deletePassenger(ActionEvent event){
 		Passageiro p = null;
 		p = tabelaPassageiros.getSelectionModel().getSelectedItem();
@@ -160,6 +182,7 @@ public class FlightSystemsGUIController implements Initializable{
 			try{
 				//Stage stage = (Stage) btnRemoverPassageiro.getScene().getWindow();
 				Fachada.getInstance().removerPassageiro(p);
+				Fachada.getInstance().salvarArquivoPassageiros();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Passageiro removido.");
 				alert.setHeaderText(null);
@@ -170,6 +193,65 @@ public class FlightSystemsGUIController implements Initializable{
 			}
 		}else{
 			aviso.setText("Selecione um item da lista.");
+		}
+	}
+	
+	public void deleteFlight(ActionEvent event){
+		Voo v = null;
+		v = tabelaVoos.getSelectionModel().getSelectedItem();
+		
+		if(v != null){
+			try{
+				Fachada.getInstance().removerVoo(v);
+				Fachada.getInstance().salvarArquivoVoos();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Vôo removido.");
+				alert.setHeaderText(null);
+				alert.setContentText("Vôo removido.");
+				alert.showAndWait();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}else{
+			aviso.setText("Selecione um item da lista.");
+		}
+	}
+	
+	public void openEmitirBilheteMenu(){
+		Voo v = null;
+		v = tabelaVoos.getSelectionModel().getSelectedItem();
+		
+		if(v!= null){
+			try{
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/EmitirBilhete.fxml"));
+				BorderPane root = (BorderPane) loader.load();
+				EmitirBilheteController createTicket = loader.getController();
+				createTicket.setFlightTicket(v);
+				Stage stage = new Stage();
+				stage.setResizable(false);
+				stage.setScene(new Scene(root));
+				stage.setTitle("Flight Systems");
+				stage.show();
+			}catch(Exception e){
+				
+			}
+		}
+	}
+	
+	public void listarPassageirosPorVoo(){
+		Voo v = null;
+		v = tabelaVoos.getSelectionModel().getSelectedItem();
+		
+		if(v!=null){
+			try{	
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Passageiros neste vôo");
+				alert.setHeaderText(null);
+				alert.setContentText(v.getPassageiros().toString());
+				alert.showAndWait();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
 	

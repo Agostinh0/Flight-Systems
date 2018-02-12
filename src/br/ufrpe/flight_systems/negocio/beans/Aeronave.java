@@ -1,6 +1,8 @@
 package br.ufrpe.flight_systems.negocio.beans;
 
-public enum Aeronave {
+import java.io.Serializable;
+
+public enum Aeronave implements Serializable{
 	AIRBUS_A320("Airbus A320"), AIRBUS_A330("Airbus A330"), AIRBUS_A350("Airbus A350"), BOEING_757("Boeing 757"),
 	BOEING_787("Boeing 787"), BOEING_737("Boeing 737");
 	

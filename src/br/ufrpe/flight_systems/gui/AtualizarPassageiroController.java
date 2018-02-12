@@ -30,8 +30,9 @@ public class AtualizarPassageiroController {
 		try{
 			Stage stage = (Stage) btnSalvar.getScene().getWindow(); 
 			Fachada.getInstance().editarPassageiro(edita);
+			Fachada.getInstance().salvarArquivoPassageiros();
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Passageiro editado!");
+			alert.setTitle("Passageiro atualizado!");
 			alert.setHeaderText(null);
 			alert.setContentText(edita.toString());
 			alert.showAndWait();

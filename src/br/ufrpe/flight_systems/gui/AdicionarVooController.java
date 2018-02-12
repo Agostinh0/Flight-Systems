@@ -119,6 +119,7 @@ public class AdicionarVooController {
 			try{
 				Stage stage = (Stage) btnSalvar.getScene().getWindow();
 				fachada.adicionarVoo(voo);
+				fachada.salvarArquivoVoos();
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Vôo adicionado!");
 				alert.setHeaderText(null);

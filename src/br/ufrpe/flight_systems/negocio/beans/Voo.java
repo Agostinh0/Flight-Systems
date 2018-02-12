@@ -1,11 +1,13 @@
 package br.ufrpe.flight_systems.negocio.beans;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-public class Voo {
+public class Voo implements Serializable{
 	
+	private static final long serialVersionUID = -5470969907347820222L;
 	private long id;
 	private Cidade cidadeOrigem;
 	private Cidade cidadeDestino;

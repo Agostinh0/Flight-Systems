@@ -1,7 +1,10 @@
 package br.ufrpe.flight_systems.negocio.beans;
 
-public class Bilhete {
+import java.io.Serializable;
+
+public class Bilhete implements Serializable{
 	
+	private static final long serialVersionUID = -3020217080272608297L;
 	private Passageiro passageiro;
 	private Voo voo;
 	private int poltrona;

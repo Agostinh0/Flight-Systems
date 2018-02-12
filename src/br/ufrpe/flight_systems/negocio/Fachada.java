@@ -45,6 +45,10 @@ public class Fachada {
 		this.controladorPassageiros.remover(passageiro);
 	}
 	
+	public void salvarArquivoPassageiros(){
+		this.controladorPassageiros.salvarArquivo();
+	}
+	
 	//Voos
 	public void adicionarVoo(Voo voo){
 		this.controladorVoos.adicionar(voo);
@@ -62,6 +66,10 @@ public class Fachada {
 		this.controladorVoos.remover(voo);
 	}
 	
+	public void salvarArquivoVoos(){
+		this.controladorVoos.salvarArquivo();
+	}
+	
 	//Bilhetes
 	public void emitirBilhete(Bilhete bilhete){
 		this.controladorBilhetes.adicionar(bilhete);
@@ -73,5 +81,9 @@ public class Fachada {
 	
 	public void removerBilhete(Bilhete bilhete){
 		this.controladorBilhetes.remover(bilhete);
+	}
+	
+	public void salvarArquivoBilhetes(){
+		this.controladorBilhetes.salvarArquivo();
 	}
 }

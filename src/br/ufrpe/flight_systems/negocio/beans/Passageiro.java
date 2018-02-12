@@ -1,6 +1,10 @@
 package br.ufrpe.flight_systems.negocio.beans;
 
-public class Passageiro {
+import java.io.Serializable;
+
+public class Passageiro implements Serializable{
+
+	private static final long serialVersionUID = -7472324597120372549L;
 	private String primeiroNome;
 	private String ultimoNome;
 	private String cpf;
