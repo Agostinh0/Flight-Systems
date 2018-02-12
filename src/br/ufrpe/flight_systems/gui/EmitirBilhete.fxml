@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <center>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="208.0" layoutY="42.0" text="EMISSÃO DE BILHETES">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="56.0" layoutY="105.0" text="Passageiro:" />
+            <ChoiceBox layoutX="144.0" layoutY="329.0" prefHeight="25.0" prefWidth="48.0" />
+            <Label layoutX="68.0" layoutY="333.0" text="Poltrona:" />
+            <Button layoutX="403.0" layoutY="341.0" mnemonicParsing="false" text="Cancelar" />
+            <Button layoutX="481.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Salvar" />
+            <ListView layoutX="144.0" layoutY="88.0" prefHeight="200.0" prefWidth="419.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
