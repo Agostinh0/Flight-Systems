@@ -111,21 +111,39 @@ public class AtualizarVooController {
 			ZonedDateTime chegadaComFusoHorario = 
 					ZonedDateTime.of(horaEstimadaDaChegada, novaCidadeDestino.getValue().getFusoHorario());
 			
-			long numero = (long) (Math.random() * 100000);
-			long idAleatorio = Math.round(numero);
-			
-			Voo edita = new Voo(idAleatorio, novaCidadeOrigem.getValue(), novaCidadeDestino.getValue(), horaDaSaida, chegadaComFusoHorario, novaAeronave.getValue());
-			
 			try{
-				Stage stage = (Stage) btnSalvar.getScene().getWindow();
-				Fachada.getInstance().editarVoo(edita);
-				Fachada.getInstance().salvarArquivoVoos();
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Vôo atualizado!");
-				alert.setHeaderText(null);
-				alert.setContentText(edita.toString());
-				alert.showAndWait();
-				stage.close();
+				if(vEdit.getHoraSaida().isAfter(LocalDateTime.now())){
+					Voo edita = new Voo(vEdit.getId(), novaCidadeOrigem.getValue(), novaCidadeDestino.getValue(), horaDaSaida, 
+							chegadaComFusoHorario, novaAeronave.getValue());
+					Stage stage = (Stage) btnSalvar.getScene().getWindow();
+					Fachada.getInstance().editarVoo(edita);
+					Fachada.getInstance().salvarArquivoVoos();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Vôo atualizado!");
+					alert.setHeaderText(null);
+					alert.setContentText(edita.toString());
+					alert.showAndWait();
+					stage.close();
+				}else if(vEdit.getHoraSaida().isBefore(LocalDateTime.now()) && 
+						vEdit.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
+					Voo edita = new Voo(vEdit.getId(), novaCidadeOrigem.getValue(), novaCidadeDestino.getValue(), vEdit.getHoraSaida() , 
+							chegadaComFusoHorario, novaAeronave.getValue());
+					Stage stage = (Stage) btnSalvar.getScene().getWindow();
+					Fachada.getInstance().editarVoo(edita);
+					Fachada.getInstance().salvarArquivoVoos();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Vôo atualizado!");
+					alert.setHeaderText(null);
+					alert.setContentText(edita.toString());
+					alert.showAndWait();
+					stage.close();
+				}else{
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Operação não permitida.");
+					alert.setHeaderText(null);
+					alert.setContentText("Esse avião já decolou e/ou pousou.");
+					alert.showAndWait();
+				}
 				
 			}catch(Exception e){
 				e.printStackTrace();

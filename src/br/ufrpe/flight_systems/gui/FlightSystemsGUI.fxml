@@ -18,16 +18,17 @@
                               <Button fx:id="btnAdicionarVoo" layoutX="2.0" layoutY="92.0" mnemonicParsing="false" onAction="#openFlightAddMenu" prefHeight="25.0" prefWidth="106.0" text="Adicionar" />
                               <Button fx:id="btnRemoverVoo" layoutX="2.0" layoutY="131.0" mnemonicParsing="false" onAction="#deleteFlight" prefHeight="25.0" prefWidth="106.0" text="Remover" />
                               <Button fx:id="btnAtualizarVoo" layoutX="2.0" layoutY="172.0" mnemonicParsing="false" onAction="#openFlightEditMenu" prefHeight="25.0" prefWidth="107.0" text="Atualizar" />
-                              <Button layoutX="1.0" layoutY="264.0" mnemonicParsing="false" onAction="#openEmitirBilheteMenu" prefHeight="81.0" prefWidth="108.0" text="Emitir bilhete para vôo selecionado" />
+                              <Button layoutX="2.0" layoutY="221.0" mnemonicParsing="false" onAction="#openEmitirBilheteMenu" prefHeight="81.0" prefWidth="108.0" text="Emitir bilhete para vôo selecionado" />
                               <Button layoutX="2.0" layoutY="368.0" mnemonicParsing="false" onAction="#listarPassageirosPorVoo" prefHeight="79.0" prefWidth="107.0" text="Listar passageiros do vôo selecionado" />
+                              <Button fx:id="btnListarBilhetes" layoutX="11.0" layoutY="317.0" mnemonicParsing="false" onAction="#listarBilhetesEmitidos" text="Listar bilhetes" />
                            </children>
                         </AnchorPane>
                         <TableView fx:id="tabelaVoos" layoutX="125.0" layoutY="46.0" onSort="#tabelaVoos" prefHeight="419.0" prefWidth="656.0">
                           <columns>
-                            <TableColumn fx:id="tcCidadeOrigem" prefWidth="147.0" text="Cidade origem" />
-                            <TableColumn fx:id="tcCidadeDestino" minWidth="0.0" prefWidth="147.0" text="Cidade destino" />
-                              <TableColumn fx:id="tcHoraSaida" prefWidth="160.0" text="Hora de saída" />
-                              <TableColumn fx:id="tcHoraChegada" prefWidth="201.0" text="Hora estimada de chegada" />
+                            <TableColumn fx:id="tcCidadeOrigem" prefWidth="124.0" text="Cidade origem" />
+                            <TableColumn fx:id="tcCidadeDestino" minWidth="0.0" prefWidth="134.0" text="Cidade destino" />
+                              <TableColumn fx:id="tcHoraSaida" prefWidth="136.0" text="Hora de saída" />
+                              <TableColumn fx:id="tcHoraChegada" prefWidth="261.0" text="Hora estimada de chegada" />
                           </columns>
                         </TableView>
                         <Label layoutX="275.0" layoutY="2.0" prefHeight="38.0" prefWidth="286.0" text="                   GERENCIAMENTO DE VÔOS" />

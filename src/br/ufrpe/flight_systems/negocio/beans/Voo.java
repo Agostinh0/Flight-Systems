@@ -15,8 +15,8 @@ public class Voo implements Serializable{
 	private ZonedDateTime horaEstimadaChegada;
 	private Aeronave aeronave;
 	private ArrayList<Passageiro> passageiros;
-	
-	private boolean[] assentos; 
+	private boolean[] assentos;
+	//private int indice;
 			
  	//Construtor
 	public Voo(long id, Cidade srcCity, Cidade dstCity, LocalDateTime take_offTime,
@@ -84,8 +84,36 @@ public class Voo implements Serializable{
 		return this.passageiros;
 	}
 	
+	public String getPassageirosVoo(){
+		String texto = null;
+		
+		for(int i = 0; i < passageiros.size(); i++){
+			texto = passageiros.get(i).toString();
+		}
+		
+		return texto;
+	}
+	
 	public void setPassageiro(Passageiro passageiro){
 		this.passageiros.add(passageiro);
+	}
+	
+	public void setPoltrona(int poltrona){
+		if(this.assentos != null){
+			this.assentos[poltrona - 1] = true;
+		}
+	}
+	
+	public boolean disponibilidadePoltrona(int poltrona){
+		boolean disponivel = true;
+		
+		if(this.assentos != null){
+			if(this.assentos[poltrona - 1] == true){
+				disponivel = false;
+			}
+		}
+		
+		return disponivel;
 	}
 	
 	//Método toString

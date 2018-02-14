@@ -9,6 +9,8 @@ public class Passageiro implements Serializable{
 	private String ultimoNome;
 	private String cpf;
 	private String passaporte;
+	private boolean emitiuBilhete = false;
+	private int indice;
 	
 	//Constutor
 	public Passageiro(String pNome, String uNome, String cpf, String passaporte){
@@ -17,12 +19,12 @@ public class Passageiro implements Serializable{
 		this.cpf = cpf;
 		this.passaporte = passaporte;
 	}
-
+	
+	//Métodos Getters e Setters
 	public String getPrimeiroNome() {
 		return primeiroNome;
 	}
 
-	//Métodos Getters e Setters
 	public void setPrimeiroNome(String primeiroNome) {
 		this.primeiroNome = primeiroNome;
 	}
@@ -51,6 +53,18 @@ public class Passageiro implements Serializable{
 		this.passaporte = passaporte;
 	}
 	
+	public boolean hasTicket(){
+		return this.emitiuBilhete;
+	}
+	
+	public void setTicketPossession(boolean option){
+		this.emitiuBilhete = option;
+	}
+	
+	public int getIndice(){
+		return this.indice;
+	}
+	
 	//Método toString
 	@Override
 	public String toString(){
@@ -58,6 +72,7 @@ public class Passageiro implements Serializable{
 		texto += "\nÚltimo nome: " + this.getUltimoNome();
 		texto += "\nCPF: " + this.getCpf();
 		texto += "\nPassaporte: " + this.getPassaporte();
+		texto += "\n----------------------------\n";
 		return texto;
 	}
 	

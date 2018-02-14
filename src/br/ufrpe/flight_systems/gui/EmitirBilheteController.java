@@ -10,10 +10,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 public class EmitirBilheteController {
 	
@@ -21,7 +24,7 @@ public class EmitirBilheteController {
 	@FXML Button btnCancelar;
 	@FXML Button btnSalvar;
 	@FXML ListView<Passageiro> listPassageiros;
-	@FXML ChoiceBox<boolean[]> assentos;
+	@FXML TextField poltrona;
 	private Voo flightTicket;
 	
 	private ArrayList<Passageiro> lista = new ArrayList<>();
@@ -39,13 +42,59 @@ public class EmitirBilheteController {
 		Passageiro p = null;
 		p = listPassageiros.getSelectionModel().getSelectedItem();
 		
-		if(p != null && assentos != null){
+		String cadeira = poltrona.getText();
+		
+		if(p != null && poltrona != null){
 			
+			int poltrona = Integer.parseInt(cadeira);
+			Bilhete b = new Bilhete(p, flightTicket, poltrona);
+			
+			if(poltrona <= flightTicket.getAeronave().getCapacidade()){
+				if(flightTicket.disponibilidadePoltrona(poltrona) == true){
+					try{
+						p.setTicketPossession(true);
+						flightTicket.setPassageiro(p);
+						int novaCapacidade = (flightTicket.getAeronave().getCapacidade() - 1);
+						flightTicket.getAeronave().setCapacidade(novaCapacidade);
+						flightTicket.setPoltrona(poltrona);
+						Stage stage = (Stage) btnSalvar.getScene().getWindow();
+						Fachada.getInstance().emitirBilhete(b);
+						Fachada.getInstance().salvarArquivoBilhetes();
+						Fachada.getInstance().salvarArquivoVoos();
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Bilhete emitido");
+						alert.setHeaderText(null);
+						alert.setContentText(b.toString());
+						alert.showAndWait();
+						stage.close();
+					}catch(Exception e){
+						e.printStackTrace();
+					}
+				}else{
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Operação não permitida.");
+					alert.setHeaderText(null);
+					alert.setContentText("Esta poltrona já está ocupada.\nPor favor, selecione outra.");
+					alert.showAndWait();
+				}
+		}else{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Poltrona não existe");
+			alert.setHeaderText(null);
+			alert.setContentText("O número da poltrona extrapola capacidade do avião.\nPor favor, insira um número menor ou igual a "
+					+ flightTicket.getAeronave().getCapacidade());
+			alert.showAndWait();
+			}
 		}
 	}
-	
+
 	public void setFlightTicket(Voo voo){
 		this.flightTicket = voo;
+	}
+	
+	public void voltar(){
+		Stage stage = (Stage) btnCancelar.getScene().getWindow();
+		stage.close();
 	}
 	
 }

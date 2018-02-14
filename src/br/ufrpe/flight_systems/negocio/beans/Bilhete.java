@@ -40,6 +40,8 @@ public class Bilhete implements Serializable{
 	public void setPoltrona(int poltrona){
 		this.poltrona = poltrona;
 	}
+	
+	
 	//Método toString
 	public String toString(){
 		String texto = "--------BILHETE--------";

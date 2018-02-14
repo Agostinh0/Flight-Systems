@@ -2,9 +2,9 @@ package br.ufrpe.flight_systems.gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +50,7 @@ public class FlightSystemsGUIController implements Initializable{
 	@FXML private Button btnAdicionarVoo;
 	@FXML private Button btnRemoverVoo; 
 	@FXML private Button btnAtualizarVoo;
+	@FXML private Button btnListarBilhetes;
 	@FXML private ObservableList<Passageiro> lista;
 	
 	public void initializeVoos() {
@@ -84,7 +85,7 @@ public class FlightSystemsGUIController implements Initializable{
 		tcCidadeOrigem.setCellValueFactory(new PropertyValueFactory<Voo, String>("CidadeOrigem"));
 		tcCidadeDestino.setCellValueFactory(new PropertyValueFactory<Voo, String>("CidadeDestino"));
 		tcHoraSaida.setCellValueFactory(new PropertyValueFactory<Voo, LocalTime>("HoraSaida"));
-		tcHoraChegada.setCellValueFactory(new PropertyValueFactory<Voo, ZonedDateTime>("HoraChegada"));
+		tcHoraChegada.setCellValueFactory(new PropertyValueFactory<Voo, ZonedDateTime>("HoraEstimadaChegada"));
 		
 		tabelaVoos.setItems(FXCollections.observableList(Fachada.getInstance().listarVoos()));
 		tabelaVoos.refresh();
@@ -157,15 +158,33 @@ public class FlightSystemsGUIController implements Initializable{
 		
 		if(v != null){
 			try{
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/AtualizarVoo.fxml"));
-				BorderPane root = (BorderPane) loader.load();
-				AtualizarVooController attFlight = loader.getController();
-				attFlight.setFlightEdit(v);
-				Stage stage = new Stage();
-				stage.setResizable(false);
-				stage.setScene(new Scene(root));
-				stage.setTitle("Flight Systems");
-				stage.show();
+				if(v.getHoraSaida().isAfter(LocalDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/AtualizarVoo.fxml"));
+					BorderPane root = (BorderPane) loader.load();
+					AtualizarVooController attFlight = loader.getController();
+					attFlight.setFlightEdit(v);
+					Stage stage = new Stage();
+					stage.setResizable(false);
+					stage.setScene(new Scene(root));
+					stage.setTitle("Flight Systems");
+					stage.show();
+				}else if(v.getHoraSaida().isBefore(LocalDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/AtualizarVoo.fxml"));
+					BorderPane root = (BorderPane) loader.load();
+					AtualizarVooController attFlight = loader.getController();
+					attFlight.setFlightEdit(v);
+					Stage stage = new Stage();
+					stage.setResizable(false);
+					stage.setScene(new Scene(root));
+					stage.setTitle("Flight Systems");
+					stage.show();
+				}else{
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Operação não permitida.");
+					alert.setHeaderText(null);
+					alert.setContentText("Esse avião já decolou e/ou pousou.");
+					alert.showAndWait();
+				}
 			}catch(IOException e){
 				Logger.getLogger(FlightSystemsGUIController.class.getName()).log(Level.SEVERE, null, e);
 			}
@@ -179,17 +198,24 @@ public class FlightSystemsGUIController implements Initializable{
 		p = tabelaPassageiros.getSelectionModel().getSelectedItem();
 		
 		if(p != null){
-			try{
-				//Stage stage = (Stage) btnRemoverPassageiro.getScene().getWindow();
-				Fachada.getInstance().removerPassageiro(p);
-				Fachada.getInstance().salvarArquivoPassageiros();
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Passageiro removido.");
+			if(p.hasTicket() == false){
+				try{
+					Fachada.getInstance().removerPassageiro(p);
+					Fachada.getInstance().salvarArquivoPassageiros();
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Passageiro removido.");
+					alert.setHeaderText(null);
+					alert.setContentText("Passageiro removido");
+					alert.showAndWait();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}else{
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Passageiro não pode ser removido.");
 				alert.setHeaderText(null);
-				alert.setContentText("Passageiro removido");
+				alert.setContentText("Este passageiro tem um bilhete emitido.");
 				alert.showAndWait();
-			}catch(Exception e){
-				e.printStackTrace();
 			}
 		}else{
 			aviso.setText("Selecione um item da lista.");
@@ -202,18 +228,26 @@ public class FlightSystemsGUIController implements Initializable{
 		
 		if(v != null){
 			try{
-				Fachada.getInstance().removerVoo(v);
-				Fachada.getInstance().salvarArquivoVoos();
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Vôo removido.");
-				alert.setHeaderText(null);
-				alert.setContentText("Vôo removido.");
-				alert.showAndWait();
+				//if(v.getBilhetesEmitidos() == null){
+					if(v.getHoraSaida().isAfter(LocalDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){	
+						Fachada.getInstance().removerVoo(v);
+						Fachada.getInstance().salvarArquivoVoos();
+						Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Vôo removido.");
+						alert.setHeaderText(null);
+						alert.setContentText("Vôo removido.");
+						alert.showAndWait();
+					}else{
+						Alert alert = new Alert(AlertType.WARNING);
+						alert.setTitle("Operação não permitida.");
+						alert.setHeaderText(null);
+						alert.setContentText("Esse avião já decolou.");
+						alert.showAndWait();
+					}
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-		}else{
-			aviso.setText("Selecione um item da lista.");
 		}
 	}
 	
@@ -223,18 +257,32 @@ public class FlightSystemsGUIController implements Initializable{
 		
 		if(v!= null){
 			try{
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/EmitirBilhete.fxml"));
-				BorderPane root = (BorderPane) loader.load();
-				EmitirBilheteController createTicket = loader.getController();
-				createTicket.setFlightTicket(v);
-				Stage stage = new Stage();
-				stage.setResizable(false);
-				stage.setScene(new Scene(root));
-				stage.setTitle("Flight Systems");
-				stage.show();
+				if(v.getHoraSaida().isAfter(LocalDateTime.now())){
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/EmitirBilhete.fxml"));
+					BorderPane root = (BorderPane) loader.load();
+					EmitirBilheteController createTicket = loader.getController();
+					createTicket.setFlightTicket(v);
+					Stage stage = new Stage();
+					stage.setResizable(false);
+					stage.setScene(new Scene(root));
+					stage.setTitle("Flight Systems");
+					stage.show();
+				}else{
+					Alert alert = new Alert(AlertType.WARNING);
+					alert.setTitle("Operação não permitida.");
+					alert.setHeaderText(null);
+					alert.setContentText("Esse avião já decolou.");
+					alert.showAndWait();
+				}
 			}catch(Exception e){
 				
 			}
+		}else{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle(null);
+			alert.setHeaderText(null);
+			alert.setContentText("Selecione um item da lista");
+			alert.showAndWait();
 		}
 	}
 	
@@ -255,8 +303,33 @@ public class FlightSystemsGUIController implements Initializable{
 		}
 	}
 	
-	public ArrayList<Passageiro> listarPassageirosPorVoo(Voo voo){
-		return voo.getPassageiros();
+	public void listarBilhetesEmitidos(){
+		Voo v = null;
+		v = tabelaVoos.getSelectionModel().getSelectedItem();
+		
+		if(v != null){
+			try{
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/BilhetesEmitidos.fxml"));
+				BorderPane root = (BorderPane) loader.load();
+				Stage stage = new Stage();
+				stage.setResizable(false);
+				stage.setScene(new Scene(root));
+				stage.setTitle("Flight Systems");
+				stage.show();
+			}catch(Exception e){
+				
+			}
+		}else{
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle(null);
+			alert.setHeaderText(null);
+			alert.setContentText("Selecione um item da lista");
+			alert.showAndWait();
+		}
+	}
+	
+	public String listarPassageirosPorVoo(Voo voo){
+		return voo.getPassageirosVoo();
 	}
 
 	@Override

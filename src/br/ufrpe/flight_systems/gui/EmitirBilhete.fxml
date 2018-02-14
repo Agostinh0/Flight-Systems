@@ -16,11 +16,12 @@
                </font>
             </Label>
             <Label layoutX="56.0" layoutY="105.0" text="Passageiro:" />
-            <ChoiceBox fx:id="assentos" layoutX="144.0" layoutY="329.0" prefHeight="25.0" prefWidth="48.0" />
-            <Label layoutX="68.0" layoutY="333.0" text="Poltrona:" />
-            <Button fx:id="btnCancelar" layoutX="403.0" layoutY="341.0" mnemonicParsing="false" text="Cancelar" />
-            <Button fx:id="btnSalvar" layoutX="481.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Salvar" />
+            <Label layoutX="68.0" layoutY="321.0" text="Poltrona:" />
+            <Button fx:id="btnCancelar" layoutX="429.0" layoutY="354.0" mnemonicParsing="false" onAction="#voltar" text="Cancelar" />
+            <Button fx:id="btnSalvar" layoutX="515.0" layoutY="354.0" mnemonicParsing="false" onAction="#salvar" prefHeight="25.0" prefWidth="56.0" text="Salvar" />
             <ListView fx:id="listPassageiros" layoutX="144.0" layoutY="88.0" prefHeight="200.0" prefWidth="419.0" />
+            <TextField fx:id="poltrona" layoutX="144.0" layoutY="317.0" prefHeight="25.0" prefWidth="39.0" />
+            <Label layoutX="193.0" layoutY="321.0" text="(Um número inteiro, respeitando a capacidade do avião)" />
          </children>
       </AnchorPane>
    </center>
