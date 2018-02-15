@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.ZoneId;
 
 public enum Cidade implements Serializable{
-	REC("Recife"), BSB("Brasília"), GIG("Galeão"), GRU("Guarulhos"), YYZ("Toronto"), YVR("Vancouver"),LGA("Nova Iorque"),
+	REC("Recife"), BSB("Brasília"), GIG("Rio de Janeiro"), GRU("São Paulo"), YYZ("Toronto"), YVR("Vancouver"),LGA("Nova Iorque"),
 	LAS("Las Vegas"), LIS("Lisboa"), MAD("Madrid"),ORY("Paris"), AMS("Amsterdã"), LHR("Londres"), DUB("Dublin"),
 	ARN("Estocolmo"), CPH("Copenhague"), OSL("Oslo"), TXL("Berlim"), CIA("Roma"), PEK("Pequim"), HND("Tóquio"), ICN("Seul");
 	
@@ -37,4 +37,5 @@ public enum Cidade implements Serializable{
 	}
 		return fusoHorario;
 	}
+	
 }

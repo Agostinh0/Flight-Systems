@@ -26,7 +26,7 @@ public class ControladorVoos {
 	
 	public void adicionar(Voo voo){
 		if(voo == null){
-			//error message
+			throw new IllegalArgumentException("Entrada inválida");
 		}else{
 			repositorio.adicionar(voo);
 		}
@@ -36,17 +36,18 @@ public class ControladorVoos {
 		return repositorio.listar();
 	}
 	
-	public void editar(Voo voo){
+	public void editar(Voo voo) {
 		if(voo == null){
-			//error message
-		}else{
+			throw new IllegalArgumentException("Entrada inválida");
+		}
+		else{
 			repositorio.editar(voo);
 		}
 	}
 	
-	public void remover(Voo voo){
+	public void remover(Voo voo) {
 		if(voo == null){
-			//error message
+			throw new IllegalArgumentException("Entrada inválida");
 		}else{
 			repositorio.remover(voo);
 		}

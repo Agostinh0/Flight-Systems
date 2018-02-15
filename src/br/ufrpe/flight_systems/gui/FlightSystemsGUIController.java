@@ -2,8 +2,6 @@ package br.ufrpe.flight_systems.gui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -12,6 +10,7 @@ import java.util.logging.Logger;
 import br.ufrpe.flight_systems.negocio.Fachada;
 import br.ufrpe.flight_systems.negocio.beans.Passageiro;
 import br.ufrpe.flight_systems.negocio.beans.Voo;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,7 +36,7 @@ public class FlightSystemsGUIController implements Initializable{
 	@FXML TableView<Voo> tabelaVoos;
 	@FXML TableColumn<Voo, String> tcCidadeOrigem;
 	@FXML TableColumn<Voo, String> tcCidadeDestino;
-	@FXML TableColumn<Voo, LocalTime> tcHoraSaida;
+	@FXML TableColumn<Voo, ZonedDateTime> tcHoraSaida;
 	@FXML TableColumn<Voo, ZonedDateTime> tcHoraChegada;
 	@FXML TableView<Passageiro> tabelaPassageiros;
 	@FXML TableColumn<Passageiro, String> tcPrimeiroNome;
@@ -82,9 +81,9 @@ public class FlightSystemsGUIController implements Initializable{
 	}
 
 	public void tabelaVoos(){
-		tcCidadeOrigem.setCellValueFactory(new PropertyValueFactory<Voo, String>("CidadeOrigem"));
-		tcCidadeDestino.setCellValueFactory(new PropertyValueFactory<Voo, String>("CidadeDestino"));
-		tcHoraSaida.setCellValueFactory(new PropertyValueFactory<Voo, LocalTime>("HoraSaida"));
+		tcCidadeOrigem.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCidadeOrigem().getCidade()));
+		tcCidadeDestino.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCidadeDestino().getCidade()));
+		tcHoraSaida.setCellValueFactory(new PropertyValueFactory<Voo, ZonedDateTime>("HoraSaida"));
 		tcHoraChegada.setCellValueFactory(new PropertyValueFactory<Voo, ZonedDateTime>("HoraEstimadaChegada"));
 		
 		tabelaVoos.setItems(FXCollections.observableList(Fachada.getInstance().listarVoos()));
@@ -158,7 +157,7 @@ public class FlightSystemsGUIController implements Initializable{
 		
 		if(v != null){
 			try{
-				if(v.getHoraSaida().isAfter(LocalDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
+				if(v.getHoraSaida().isAfter(ZonedDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/AtualizarVoo.fxml"));
 					BorderPane root = (BorderPane) loader.load();
 					AtualizarVooController attFlight = loader.getController();
@@ -168,7 +167,7 @@ public class FlightSystemsGUIController implements Initializable{
 					stage.setScene(new Scene(root));
 					stage.setTitle("Flight Systems");
 					stage.show();
-				}else if(v.getHoraSaida().isBefore(LocalDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
+				}else if(v.getHoraSaida().isBefore(ZonedDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/AtualizarVoo.fxml"));
 					BorderPane root = (BorderPane) loader.load();
 					AtualizarVooController attFlight = loader.getController();
@@ -228,8 +227,7 @@ public class FlightSystemsGUIController implements Initializable{
 		
 		if(v != null){
 			try{
-				//if(v.getBilhetesEmitidos() == null){
-					if(v.getHoraSaida().isAfter(LocalDateTime.now()) && v.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){	
+					if(v.getHoraSaida().isAfter(ZonedDateTime.now()) && v.getContadorBilhetes() == 0){	
 						Fachada.getInstance().removerVoo(v);
 						Fachada.getInstance().salvarArquivoVoos();
 						Alert alert = new Alert(AlertType.INFORMATION);
@@ -241,7 +239,7 @@ public class FlightSystemsGUIController implements Initializable{
 						Alert alert = new Alert(AlertType.WARNING);
 						alert.setTitle("Operação não permitida.");
 						alert.setHeaderText(null);
-						alert.setContentText("Esse avião já decolou.");
+						alert.setContentText("Esse avião já decolou ou existem bilhetes emitidos para o mesmo.");
 						alert.showAndWait();
 					}
 				
@@ -257,7 +255,7 @@ public class FlightSystemsGUIController implements Initializable{
 		
 		if(v!= null){
 			try{
-				if(v.getHoraSaida().isAfter(LocalDateTime.now())){
+				if(v.getHoraSaida().isAfter(ZonedDateTime.now())){
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/ufrpe/flight_systems/gui/EmitirBilhete.fxml"));
 					BorderPane root = (BorderPane) loader.load();
 					EmitirBilheteController createTicket = loader.getController();

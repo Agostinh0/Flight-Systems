@@ -56,6 +56,4 @@ public class BilhetesEmitidosController {
 		Stage stage = (Stage) btnVoltar.getScene().getWindow();
 		stage.close();
 	}
-	
-	
 }

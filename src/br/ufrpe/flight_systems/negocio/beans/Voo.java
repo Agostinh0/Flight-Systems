@@ -1,7 +1,6 @@
 package br.ufrpe.flight_systems.negocio.beans;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
@@ -11,15 +10,16 @@ public class Voo implements Serializable{
 	private long id;
 	private Cidade cidadeOrigem;
 	private Cidade cidadeDestino;
-	private LocalDateTime horaSaida;
+	private ZonedDateTime horaSaida;
 	private ZonedDateTime horaEstimadaChegada;
 	private Aeronave aeronave;
 	private ArrayList<Passageiro> passageiros;
 	private boolean[] assentos;
+	private int contadorBilhetes;
 	//private int indice;
 			
  	//Construtor
-	public Voo(long id, Cidade srcCity, Cidade dstCity, LocalDateTime take_offTime,
+	public Voo(long id, Cidade srcCity, Cidade dstCity,	ZonedDateTime take_offTime,
 			ZonedDateTime estimatedLanding, Aeronave plane){
 		this.id = id;
 		this.cidadeOrigem = srcCity;
@@ -29,6 +29,7 @@ public class Voo implements Serializable{
 		this.aeronave = plane;
 		this.passageiros = new ArrayList<Passageiro>();
 		this.assentos = new boolean[aeronave.getCapacidade()];
+		this.contadorBilhetes = 0;
 	}
 	
 	//Métodos Getters e Setters
@@ -56,11 +57,11 @@ public class Voo implements Serializable{
 		this.cidadeDestino = cidadeDestino;
 	}
 
-	public LocalDateTime getHoraSaida() {
+	public ZonedDateTime getHoraSaida() {
 		return horaSaida;
 	}
 
-	public void setHoraSaida(LocalDateTime horaSaida) {
+	public void setHoraSaida(ZonedDateTime horaSaida) {
 		this.horaSaida = horaSaida;
 	}
 
@@ -116,6 +117,14 @@ public class Voo implements Serializable{
 		return disponivel;
 	}
 	
+	public int getContadorBilhetes(){
+		return this.contadorBilhetes; 
+	}
+	
+	public void setContadorBilhetes(int contador){
+		this.contadorBilhetes = (contadorBilhetes + contador);
+	}
+	
 	//Método toString
 	@Override
 	public String toString(){
@@ -125,7 +134,6 @@ public class Voo implements Serializable{
 		texto += "\nHora de saída: " + this.getHoraSaida();
 		texto += "\nHora estimada de chegada: " + this.getHoraEstimadaChegada();
 		texto += "\nModelo da aeronave: " + this.getAeronave().getModeloAeronave();
-		texto += "\nPassageiros no vôo: " + this.passageiros.toString();
 		return texto;
 	}
 	

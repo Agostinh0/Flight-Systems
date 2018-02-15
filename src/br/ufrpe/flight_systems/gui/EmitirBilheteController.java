@@ -38,6 +38,7 @@ public class EmitirBilheteController {
 		listPassageiros.setItems(filtdList);
 	}
 	
+
 	public void salvar(){
 		Passageiro p = null;
 		p = listPassageiros.getSelectionModel().getSelectedItem();
@@ -57,6 +58,7 @@ public class EmitirBilheteController {
 						int novaCapacidade = (flightTicket.getAeronave().getCapacidade() - 1);
 						flightTicket.getAeronave().setCapacidade(novaCapacidade);
 						flightTicket.setPoltrona(poltrona);
+						flightTicket.setContadorBilhetes(1);
 						Stage stage = (Stage) btnSalvar.getScene().getWindow();
 						Fachada.getInstance().emitirBilhete(b);
 						Fachada.getInstance().salvarArquivoBilhetes();
@@ -67,6 +69,7 @@ public class EmitirBilheteController {
 						alert.setContentText(b.toString());
 						alert.showAndWait();
 						stage.close();
+						
 					}catch(Exception e){
 						e.printStackTrace();
 					}
@@ -85,6 +88,7 @@ public class EmitirBilheteController {
 					+ flightTicket.getAeronave().getCapacidade());
 			alert.showAndWait();
 			}
+		
 		}
 	}
 

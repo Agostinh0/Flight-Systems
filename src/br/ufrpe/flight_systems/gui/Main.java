@@ -15,7 +15,6 @@ public class Main extends Application{
 		try{
 			BorderPane root = FXMLLoader.load(getClass().getResource("/br/ufrpe/flight_systems/gui/FlightSystemsGUI.fxml"));
 			Scene scene = new Scene(root, 800, 500);
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setTitle("Flight Systems");
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);

@@ -25,10 +25,10 @@
                         </AnchorPane>
                         <TableView fx:id="tabelaVoos" layoutX="125.0" layoutY="46.0" onSort="#tabelaVoos" prefHeight="419.0" prefWidth="656.0">
                           <columns>
-                            <TableColumn fx:id="tcCidadeOrigem" prefWidth="124.0" text="Cidade origem" />
-                            <TableColumn fx:id="tcCidadeDestino" minWidth="0.0" prefWidth="134.0" text="Cidade destino" />
-                              <TableColumn fx:id="tcHoraSaida" prefWidth="136.0" text="Hora de saída" />
-                              <TableColumn fx:id="tcHoraChegada" prefWidth="261.0" text="Hora estimada de chegada" />
+                            <TableColumn fx:id="tcCidadeOrigem" prefWidth="90.0" text="Cidade origem" />
+                            <TableColumn fx:id="tcCidadeDestino" minWidth="0.0" prefWidth="117.0" text="Cidade destino" />
+                              <TableColumn fx:id="tcHoraSaida" prefWidth="196.0" text="Hora de saída" />
+                              <TableColumn fx:id="tcHoraChegada" prefWidth="252.0" text="Hora estimada de chegada" />
                           </columns>
                         </TableView>
                         <Label layoutX="275.0" layoutY="2.0" prefHeight="38.0" prefWidth="286.0" text="                   GERENCIAMENTO DE VÔOS" />

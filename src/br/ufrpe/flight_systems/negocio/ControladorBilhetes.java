@@ -24,9 +24,9 @@ public class ControladorBilhetes {
 		return instance;
 	}
 	
-	public void adicionar(Bilhete bilhete){
+	public void adicionar(Bilhete bilhete) {
 		if(bilhete == null){
-			//error message
+			throw new IllegalArgumentException("Entrada inválida.");
 		}else{
 			repositorio.adicionar(bilhete);
 		}
@@ -38,7 +38,7 @@ public class ControladorBilhetes {
 	
 	public void remover(Bilhete bilhete){
 		if(bilhete == null){
-			//error message
+			throw new IllegalArgumentException("Entrada inválida.");
 		}else{
 			repositorio.remover(bilhete);
 		}

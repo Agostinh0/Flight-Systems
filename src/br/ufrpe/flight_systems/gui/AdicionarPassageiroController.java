@@ -31,7 +31,7 @@ public class AdicionarPassageiroController {
 		passport = passaporte.getText();
 		
 		Passageiro p = new Passageiro(firstName, lastName, cpfPassenger, passport);
-		
+	
 		try{
 			Stage stage = (Stage) btnSalvar.getScene().getWindow();
 			fachada.adicionarPassageiro(p);

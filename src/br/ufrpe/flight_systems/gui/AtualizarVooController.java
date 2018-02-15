@@ -19,11 +19,12 @@ import br.ufrpe.flight_systems.negocio.Fachada;
 import br.ufrpe.flight_systems.negocio.beans.Aeronave;
 import br.ufrpe.flight_systems.negocio.beans.Cidade;
 import br.ufrpe.flight_systems.negocio.beans.Voo;
-
 public class AtualizarVooController {
 	
 	@FXML Label aviso;
 	@FXML Button btnCancelar;
+
+
 	@FXML Button btnSalvar;
 	@FXML TextField novaHoraSaida;
 	@FXML TextField novaHoraChegada;
@@ -108,13 +109,16 @@ public class AtualizarVooController {
 			LocalDateTime horaDaSaida = LocalDateTime.of(dataDaSaida, horaDecolagem);
 			LocalDateTime horaEstimadaDaChegada = LocalDateTime.of(dataEstimadadaDaChegada, horaAterrissagem);
 			
+			ZonedDateTime saidaComFusoHorario =
+					ZonedDateTime.of(horaDaSaida, novaCidadeOrigem.getValue().getFusoHorario());
+			
 			ZonedDateTime chegadaComFusoHorario = 
 					ZonedDateTime.of(horaEstimadaDaChegada, novaCidadeDestino.getValue().getFusoHorario());
 			
-			try{
-				if(vEdit.getHoraSaida().isAfter(LocalDateTime.now())){
-					Voo edita = new Voo(vEdit.getId(), novaCidadeOrigem.getValue(), novaCidadeDestino.getValue(), horaDaSaida, 
-							chegadaComFusoHorario, novaAeronave.getValue());
+			try{	
+				if(vEdit.getHoraSaida().isAfter(ZonedDateTime.now())){
+					Voo edita = new Voo(vEdit.getId(), novaCidadeOrigem.getValue(), novaCidadeDestino.getValue(), saidaComFusoHorario, 
+						chegadaComFusoHorario, novaAeronave.getValue());
 					Stage stage = (Stage) btnSalvar.getScene().getWindow();
 					Fachada.getInstance().editarVoo(edita);
 					Fachada.getInstance().salvarArquivoVoos();
@@ -123,11 +127,13 @@ public class AtualizarVooController {
 					alert.setHeaderText(null);
 					alert.setContentText(edita.toString());
 					alert.showAndWait();
-					stage.close();
-				}else if(vEdit.getHoraSaida().isBefore(LocalDateTime.now()) && 
-						vEdit.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
+						stage.close();
+						
+				}else if(vEdit.getHoraSaida().isBefore(ZonedDateTime.now()) && 
+							vEdit.getHoraEstimadaChegada().isAfter(ZonedDateTime.now())){
+					
 					Voo edita = new Voo(vEdit.getId(), novaCidadeOrigem.getValue(), novaCidadeDestino.getValue(), vEdit.getHoraSaida() , 
-							chegadaComFusoHorario, novaAeronave.getValue());
+						chegadaComFusoHorario, novaAeronave.getValue());
 					Stage stage = (Stage) btnSalvar.getScene().getWindow();
 					Fachada.getInstance().editarVoo(edita);
 					Fachada.getInstance().salvarArquivoVoos();
@@ -137,30 +143,22 @@ public class AtualizarVooController {
 					alert.setContentText(edita.toString());
 					alert.showAndWait();
 					stage.close();
-				}else{
-					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle("Operação não permitida.");
-					alert.setHeaderText(null);
-					alert.setContentText("Esse avião já decolou e/ou pousou.");
-					alert.showAndWait();
-				}
+			}
 				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			
-		}else{
-			//aviso.setText("Preencha todos os campos!");
 		}
 		
 	}
 	
-	public void voltar(){
-		Stage stage = (Stage) btnCancelar.getScene().getWindow();
-		stage.close();
-	}
+		public void voltar(){
+			Stage stage = (Stage) btnCancelar.getScene().getWindow();
+			stage.close();
+		}
 	
-	public void setFlightEdit(Voo v){
-		this.vEdit = v;
+		public void setFlightEdit(Voo v){
+			this.vEdit = v;
+		}
 	}
-}
+

@@ -26,7 +26,7 @@ public class ControladorPassageiros {
 	
 	public void adicionar(Passageiro passageiro){
 		if(passageiro == null){
-			//error message
+			throw new IllegalArgumentException("Entrada inválida.");
 		}else{
 			repositorio.adicionar(passageiro);
 		}
@@ -38,19 +38,20 @@ public class ControladorPassageiros {
 	
 	public void editar(Passageiro passageiro){
 		if(passageiro == null){
-			//error message
+			throw new IllegalArgumentException("Entrada inválida");
 		}else{
 			repositorio.editar(passageiro);
 		}
 	}
 	
-	public void remover(Passageiro passageiro){
+	public void remover(Passageiro passageiro) {
 		if(passageiro == null){
-			//error message
+			throw new IllegalArgumentException("Entrada inválida.");
 		}else{
 			repositorio.remover(passageiro);
 		}
 	}
+	
 	
 	public void salvarArquivo(){
 		repositorio.salvarArquivo();

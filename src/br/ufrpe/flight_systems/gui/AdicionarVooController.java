@@ -108,13 +108,16 @@ public class AdicionarVooController {
 			LocalDateTime horaDaSaida = LocalDateTime.of(dataDaSaida, horaDecolagem);
 			LocalDateTime horaEstimadaDaChegada = LocalDateTime.of(dataEstimadadaDaChegada, horaAterrissagem);
 			
+			ZonedDateTime saidaComFusoHorario =
+					ZonedDateTime.of(horaDaSaida, cidadeOrigem.getValue().getFusoHorario());
+			
 			ZonedDateTime chegadaComFusoHorario = 
 					ZonedDateTime.of(horaEstimadaDaChegada, cidadeDestino.getValue().getFusoHorario());
 			
 			long numero = (long) (Math.random() * 100000);
 			long idAleatorio = Math.round(numero);
 			
-			Voo voo = new Voo(idAleatorio, cidadeOrigem.getValue(), cidadeDestino.getValue(), horaDaSaida, chegadaComFusoHorario, aeronave.getValue());
+			Voo voo = new Voo(idAleatorio, cidadeOrigem.getValue(), cidadeDestino.getValue(), saidaComFusoHorario, chegadaComFusoHorario, aeronave.getValue());
 			
 			try{
 				Stage stage = (Stage) btnSalvar.getScene().getWindow();
