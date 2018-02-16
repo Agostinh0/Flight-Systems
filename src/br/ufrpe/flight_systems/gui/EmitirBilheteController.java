@@ -63,6 +63,7 @@ public class EmitirBilheteController {
 						Fachada.getInstance().emitirBilhete(b);
 						Fachada.getInstance().salvarArquivoBilhetes();
 						Fachada.getInstance().salvarArquivoVoos();
+						Fachada.getInstance().salvarArquivoPassageiros();
 						Alert alert = new Alert(AlertType.INFORMATION);
 						alert.setTitle("Bilhete emitido");
 						alert.setHeaderText(null);

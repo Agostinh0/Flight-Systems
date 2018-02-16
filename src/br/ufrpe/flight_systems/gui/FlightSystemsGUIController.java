@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import br.ufrpe.flight_systems.exceptions.ExisteBilheteException;
+import br.ufrpe.flight_systems.exceptions.PossuiBilheteException;
+import br.ufrpe.flight_systems.exceptions.VooJaRealizadoException;
 import br.ufrpe.flight_systems.negocio.Fachada;
 import br.ufrpe.flight_systems.negocio.beans.Passageiro;
 import br.ufrpe.flight_systems.negocio.beans.Voo;
@@ -197,54 +200,40 @@ public class FlightSystemsGUIController implements Initializable{
 		p = tabelaPassageiros.getSelectionModel().getSelectedItem();
 		
 		if(p != null){
-			if(p.hasTicket() == false){
-				try{
-					Fachada.getInstance().removerPassageiro(p);
-					Fachada.getInstance().salvarArquivoPassageiros();
-					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("Passageiro removido.");
-					alert.setHeaderText(null);
-					alert.setContentText("Passageiro removido");
-					alert.showAndWait();
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-			}else{
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("Passageiro não pode ser removido.");
+			try{
+				Fachada.getInstance().removerPassageiro(p);
+				Fachada.getInstance().salvarArquivoPassageiros();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Passageiro removido.");
 				alert.setHeaderText(null);
-				alert.setContentText("Este passageiro tem um bilhete emitido.");
+				alert.setContentText("Passageiro removido");
 				alert.showAndWait();
+			}catch(PossuiBilheteException e){
+				e.printStackTrace();
 			}
 		}else{
 			aviso.setText("Selecione um item da lista.");
 		}
 	}
 	
-	public void deleteFlight(ActionEvent event){
+	public void deleteFlight(ActionEvent event) throws VooJaRealizadoException{
 		Voo v = null;
 		v = tabelaVoos.getSelectionModel().getSelectedItem();
 		
 		if(v != null){
-			try{
-					if(v.getHoraSaida().isAfter(ZonedDateTime.now()) && v.getContadorBilhetes() == 0){	
-						Fachada.getInstance().removerVoo(v);
-						Fachada.getInstance().salvarArquivoVoos();
-						Alert alert = new Alert(AlertType.INFORMATION);
-						alert.setTitle("Vôo removido.");
-						alert.setHeaderText(null);
-						alert.setContentText("Vôo removido.");
-						alert.showAndWait();
-					}else{
-						Alert alert = new Alert(AlertType.WARNING);
-						alert.setTitle("Operação não permitida.");
-						alert.setHeaderText(null);
-						alert.setContentText("Esse avião já decolou ou existem bilhetes emitidos para o mesmo.");
-						alert.showAndWait();
-					}
-				
-			}catch(Exception e){
-				e.printStackTrace();
+			try{	
+				Fachada.getInstance().removerVoo(v);
+				Fachada.getInstance().salvarArquivoVoos();
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Vôo removido.");
+				alert.setHeaderText(null);
+				alert.setContentText("Vôo removido.");
+				alert.showAndWait();
+			
+			}catch(VooJaRealizadoException e){
+				e.getMessage();
+			}catch(ExisteBilheteException e){
+				e.getMessage();
 			}
 		}
 	}

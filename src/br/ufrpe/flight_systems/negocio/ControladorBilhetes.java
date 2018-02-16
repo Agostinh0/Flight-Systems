@@ -3,13 +3,12 @@ package br.ufrpe.flight_systems.negocio;
 import java.util.ArrayList;
 
 import br.ufrpe.flight_systems.dados.RepositorioBilhetes;
-import br.ufrpe.flight_systems.negocio.beans.Bilhete;
+import br.ufrpe.flight_systems.negocio.beans.Bilhete;;
 
 public class ControladorBilhetes {
 	
 	private RepositorioBilhetes repositorio;
 	private static ControladorBilhetes instance;
-	
 	//Construtor
 	public ControladorBilhetes(){
 		this.repositorio = RepositorioBilhetes.getInstance();
@@ -24,7 +23,7 @@ public class ControladorBilhetes {
 		return instance;
 	}
 	
-	public void adicionar(Bilhete bilhete) {
+	public void adicionar(Bilhete bilhete){
 		if(bilhete == null){
 			throw new IllegalArgumentException("Entrada inválida.");
 		}else{

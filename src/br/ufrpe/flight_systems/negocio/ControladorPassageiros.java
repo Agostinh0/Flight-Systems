@@ -3,6 +3,7 @@ package br.ufrpe.flight_systems.negocio;
 import java.util.ArrayList;
 
 import br.ufrpe.flight_systems.dados.RepositorioPassageiros;
+import br.ufrpe.flight_systems.exceptions.PossuiBilheteException;
 import br.ufrpe.flight_systems.negocio.beans.Passageiro;
 
 public class ControladorPassageiros {
@@ -44,9 +45,11 @@ public class ControladorPassageiros {
 		}
 	}
 	
-	public void remover(Passageiro passageiro) {
+	public void remover(Passageiro passageiro) throws PossuiBilheteException {
 		if(passageiro == null){
 			throw new IllegalArgumentException("Entrada inválida.");
+		}else if(passageiro.hasTicket() == true){
+			throw new PossuiBilheteException();
 		}else{
 			repositorio.remover(passageiro);
 		}

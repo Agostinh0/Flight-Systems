@@ -2,6 +2,9 @@ package br.ufrpe.flight_systems.negocio;
 
 import java.util.ArrayList;
 
+import br.ufrpe.flight_systems.exceptions.ExisteBilheteException;
+import br.ufrpe.flight_systems.exceptions.PossuiBilheteException;
+import br.ufrpe.flight_systems.exceptions.VooJaRealizadoException;
 import br.ufrpe.flight_systems.negocio.beans.Bilhete;
 import br.ufrpe.flight_systems.negocio.beans.Passageiro;
 import br.ufrpe.flight_systems.negocio.beans.Voo;
@@ -41,7 +44,7 @@ public class Fachada {
 		this.controladorPassageiros.editar(passageiro);
 	}
 	
-	public void removerPassageiro(Passageiro passageiro){
+	public void removerPassageiro(Passageiro passageiro) throws PossuiBilheteException{
 		this.controladorPassageiros.remover(passageiro);
 	}
 	
@@ -62,12 +65,16 @@ public class Fachada {
 		this.controladorVoos.editar(voo);
 	}
 	
-	public void removerVoo(Voo voo){
+	public void removerVoo(Voo voo) throws VooJaRealizadoException, ExisteBilheteException{
 		this.controladorVoos.remover(voo);
 	}
 	
 	public void salvarArquivoVoos(){
 		this.controladorVoos.salvarArquivo();
+	}
+	
+	public String listarPassageirosNoVoo(Voo voo){
+		return this.controladorVoos.listarPassageirosNoVoo(voo);
 	}
 	
 	//Bilhetes

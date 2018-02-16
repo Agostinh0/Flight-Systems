@@ -76,6 +76,10 @@ public class RepositorioVoos implements Serializable{
 		voos.get(indice).setPassageiro(passageiro);
 	}
 	
+	public String listarPassageirosNoVoo(Voo voo){
+		return voo.getPassageirosVoo();
+	}
+	
 	//Arquivos
 	private static RepositorioVoos lerArquivo(){
 		RepositorioVoos instanciaLocal = null;
